@@ -20,3 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('ccaptcha')->group(function () {
+    Route::get('refresh', function () {
+        return response()->json(['captcha'=> captcha_img('flat')]);
+    });
+});
