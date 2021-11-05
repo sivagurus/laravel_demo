@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,9 @@ Route::prefix('ccaptcha')->group(function () {
     Route::get('refresh', function () {
         return response()->json(['captcha'=> captcha_img('flat')]);
     });
+});
+
+Route::prefix('user')->name("profile.")->middleware(["auth"])->group(function () {
+    Route::get('profile', [ProfileController::class,'show'])->name("show");
+    Route::post('profile', [ProfileController::class,'update'])->name("update");
 });
